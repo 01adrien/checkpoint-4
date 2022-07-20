@@ -1,6 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root,
 #root,
 #docs-root {
   --main-bg-color: #efefef;
   --main-color: #ff455a;
+}
+
+.home-bg {
+  background-image: url("https://www.economie.gouv.fr/files/boutique_ligne_910.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
