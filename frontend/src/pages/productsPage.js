@@ -4,16 +4,15 @@ import { getProducts, getFilteredProduct } from "../lib";
 import toast, { Toaster } from "react-hot-toast";
 import ProductListItem from "../components/productListItem";
 import Pagination from "../components/pagination";
-import { Link } from "react-router-dom";
 
 export default function ProductsPage({ cart, setCart }) {
   const [productsList, setProductsList] = useState([]);
   const [itemsCount, setItemsCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
-  const itemsPerPage = 10;
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const itemsPerPage = 7;
   useEffect(() => {
-    console.log(inputValue);
     if (inputValue) {
       getFilteredProduct(inputValue).then(setProductsList);
     } else {
@@ -24,7 +23,7 @@ export default function ProductsPage({ cart, setCart }) {
         }
       );
     }
-  }, [currentPage, inputValue]);
+  }, [currentPage, inputValue, selectedCategory]);
 
   const categories = [
     "men s clothing",
@@ -48,7 +47,27 @@ export default function ProductsPage({ cart, setCart }) {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         className="border-[1px] border-[#b6b2b2] rounded-md m-4 h-8"
+        placeholder=" anything..."
       />
+      <div className="flex h-20 w-[85vw] border-t-[1px] border-[#e8e5e5] overflow-scroll min-w-[400px] justify-between items-center">
+        {categories.map((cat) => (
+          <div
+            className={
+              selectedCategory === cat
+                ? " bg-[#e8e5e5] rounded flex items-center h-[70%]"
+                : null
+            }
+          >
+            <button
+              key={cat}
+              className="px-3"
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          </div>
+        ))}
+      </div>
       <div className="w-[70vw]">
         {productsList.map((product) => (
           <ProductListItem

@@ -4,13 +4,31 @@ import { getOneProduct } from "../lib";
 import Layout from "../components/layout";
 import StarRate from "../components/starRate";
 import Button from "../components/button";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function DetailPage({}) {
+export default function DetailPage({ cart, setCart }) {
   const [product, setProduct] = useState([]);
   const { id } = useParams();
+  function addProduct() {
+    const updatedCart = cart.slice();
+    for (const item of updatedCart) {
+      console.log(`${product.name} === ${item.name}`);
+      if (product.name === item.name) {
+        item.quantity += 1;
+      }
+    }
+    if (updatedCart !== cart) {
+      setCart(updatedCart);
+    } else {
+      setCart((prevState) => {
+        return [...prevState, product];
+      });
+    }
+
+    toast("Product added to cart !");
+  }
   useEffect(() => {
     getOneProduct(id).then(setProduct);
-    console.log(product);
   }, []);
   return (
     <Layout navLinks={["Home", "Products", "Admin", "Order"]}>
@@ -24,7 +42,18 @@ export default function DetailPage({}) {
         alt={product.name}
       />
       <p className="text-center py-3 w-[40vw] text-xl">{product.description}</p>
-      <Button text={"buy"} />
+      <Button text={"buy"} fn={addProduct} />
+      <Toaster
+        position="top-center"
+        containerStyle={{}}
+        toastOptions={{
+          duration: 1000,
+          style: {
+            background: "blue",
+            color: "white",
+          },
+        }}
+      />
     </Layout>
   );
 }

@@ -14,7 +14,7 @@ export default function Layout({ navLinks, children }) {
     <>
       <div className="h-16 flex justify-around items-center border-b-2">
         {navLinks.map((l, i) => (
-          <Link to={links[l]}>
+          <Link key={i} to={links[l]}>
             <p key={i}>{l}</p>
           </Link>
         ))}

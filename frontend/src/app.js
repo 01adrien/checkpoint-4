@@ -22,7 +22,10 @@ export default function App() {
             path="/order"
             element={<OrderPage setCart={setCart} cart={cart} />}
           />
-          <Route path="/products/:id" element={<DetailPage />} />
+          <Route
+            path="/products/:id"
+            element={<DetailPage setCart={setCart} cart={cart} />}
+          />
         </Routes>
       </BrowserRouter>
     </>

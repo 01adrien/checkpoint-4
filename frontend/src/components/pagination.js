@@ -6,7 +6,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
     return (
       <div
         key={i}
-        className={page === currentPage ? "text-white bg-[blue] rounded" : null}
+        className={page === currentPage ? "bg-[#e8e5e5] rounded" : null}
       >
         <a
           key={page}
@@ -24,10 +24,16 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
   return (
     <nav className="bg-white h-16 flex justify-center items-center text-lg cursor-pointer w-[250px] mt-3 mb-2">
       <span
-        className="text-xl ml-3 mr-5"
+        onClick={() => setCurrentPage(1)}
+        className="text-3xl px-2 rounded hover:bg-[#e8e5e5]"
+      >
+        «
+      </span>
+      <span
+        className="text-3xl px-2 rounded mr-3 hover:bg-[#e8e5e5]"
         onClick={currentPage > 1 ? () => setCurrentPage(currentPage - 1) : null}
       >
-        ←
+        ‹
       </span>
       {index < 8
         ? pages.map((page, i) => {
@@ -46,12 +52,18 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
           })}
       {index > 5 && currentPage < index - 2 ? <span>...</span> : null}
       <span
-        className="text-xl mr-3 ml-5"
+        className="text-3xl px-2 ml-5 rounded hover:bg-[#e8e5e5]"
         onClick={
           currentPage < index ? () => setCurrentPage(currentPage + 1) : null
         }
       >
-        →
+        ›
+      </span>
+      <span
+        onClick={() => setCurrentPage(index)}
+        className="text-3xl px-2 rounded hover:bg-[#e8e5e5]"
+      >
+        »
       </span>
     </nav>
   );

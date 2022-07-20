@@ -32,7 +32,7 @@ export default function ProductOrderItem({
         </div>
         <p>
           <Link to="/">
-            <p className="text-[grey] hover:underline">detail</p>
+            <span className="text-[grey] hover:underline">detail</span>
           </Link>
         </p>
         <p className="py-2 text-xl">{price} ¥</p>
