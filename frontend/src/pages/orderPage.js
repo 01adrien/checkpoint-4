@@ -24,9 +24,11 @@ export default function OrderPage({ cart, setCart }) {
   return (
     <Layout navLinks={["Home", "Products", "Admin", "Order"]}>
       {cart.length > 0 && (
-        <p className="text-xl m-10 w-[200px]">
-          total {cart.reduce((acc, x) => acc + x.price * x.quantity, 0)} ¥
-        </p>
+        <div className="text-xl m-10 w-[150px] text-center rounded-md flex items-center justify-center shadow-md h-12">
+          <p>
+            total {cart.reduce((acc, x) => acc + x.price * x.quantity, 0)} ¥
+          </p>
+        </div>
       )}
       <div className="w-[70vw]">
         {cart.length > 0 ? (

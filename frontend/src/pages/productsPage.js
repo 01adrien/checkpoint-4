@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
-import { getProducts, getFilteredProduct } from "../lib";
+import { getProducts, getFilteredProduct, getProductsByCategory } from "../lib";
 import toast, { Toaster } from "react-hot-toast";
 import ProductListItem from "../components/productListItem";
 import Pagination from "../components/pagination";
@@ -10,11 +10,34 @@ export default function ProductsPage({ cart, setCart }) {
   const [itemsCount, setItemsCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const itemsPerPage = 7;
   useEffect(() => {
     if (inputValue) {
-      getFilteredProduct(inputValue).then(setProductsList);
+      getFilteredProduct(
+        inputValue,
+        itemsPerPage,
+        (currentPage - 1) * itemsPerPage
+      ).then(setProductsList);
+    }
+    if (selectedCategory) {
+      if (selectedCategory !== "all") {
+        getProductsByCategory(
+          selectedCategory,
+          itemsPerPage,
+          (currentPage - 1) * itemsPerPage
+        ).then((data) => {
+          setProductsList(data.results);
+          setItemsCount(data.count);
+        });
+      } else if (selectedCategory === "all" && !inputValue) {
+        getProducts(itemsPerPage, (currentPage - 1) * itemsPerPage).then(
+          (data) => {
+            setProductsList(data.results);
+            setItemsCount(data.count);
+          }
+        );
+      }
     } else {
       getProducts(itemsPerPage, (currentPage - 1) * itemsPerPage).then(
         (data) => {
@@ -30,6 +53,7 @@ export default function ProductsPage({ cart, setCart }) {
     "jewelery",
     "electronics",
     "women s clothing",
+    "all",
   ];
 
   function addProduct(product) {
@@ -45,13 +69,18 @@ export default function ProductsPage({ cart, setCart }) {
     <Layout navLinks={["Home", "Products", "Admin", "Order"]}>
       <input
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setCurrentPage(1);
+          setSelectedCategory("all");
+        }}
         className="border-[1px] border-[#b6b2b2] rounded-md m-4 h-8"
         placeholder=" anything..."
       />
-      <div className="flex h-20 w-[85vw] border-t-[1px] border-[#e8e5e5] overflow-scroll min-w-[400px] justify-between items-center">
+      <div className="flex h-20 w-[85vw] border-t-[1px] border-[#e8e5e5] overflow-x-auto min-w-[550px] justify-between items-center">
         {categories.map((cat) => (
           <div
+            key={cat}
             className={
               selectedCategory === cat
                 ? " bg-[#e8e5e5] rounded flex items-center h-[70%]"
@@ -61,7 +90,10 @@ export default function ProductsPage({ cart, setCart }) {
             <button
               key={cat}
               className="px-3"
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => {
+                setSelectedCategory(cat);
+                setCurrentPage(1);
+              }}
             >
               {cat}
             </button>

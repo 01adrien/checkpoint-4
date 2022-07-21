@@ -10,7 +10,8 @@
 }
 
 .home-bg {
-  background-image: url("https://www.economie.gouv.fr/files/boutique_ligne_910.jpg");
+  background-image: url("https://www.protranslate.net/blog/wp-content/uploads/2017/02/ecommerce.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: 50%;
+  background-size: contain;
 }

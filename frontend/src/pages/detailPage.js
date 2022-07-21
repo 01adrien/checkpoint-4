@@ -41,7 +41,9 @@ export default function DetailPage({ cart, setCart }) {
         src={product.picture}
         alt={product.name}
       />
-      <p className="text-center py-3 w-[40vw] text-xl">{product.description}</p>
+      <p className="text-center py-16 w-[40vw] text-xl">
+        {product.description}
+      </p>
       <Button text={"buy"} fn={addProduct} />
       <Toaster
         position="top-center"

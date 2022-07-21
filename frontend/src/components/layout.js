@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 export default function Layout({ navLinks, children }) {
   const links = {
     Home: "/",
@@ -10,16 +10,23 @@ export default function Layout({ navLinks, children }) {
     "Product List": "/",
     Disconnect: "/",
   };
+
+  const getActiveLinkStyle = ({ isActive }) => ({
+    color: isActive ? "blue" : "black",
+  });
   return (
-    <>
-      <div className="h-16 flex justify-around items-center border-b-2">
+    <div>
+      <div className="h-16 flex justify-around items-center bg-[#e8e5e5]">
         {navLinks.map((l, i) => (
-          <Link key={i} to={links[l]}>
+          <NavLink style={getActiveLinkStyle} key={i} to={links[l]}>
             <p key={i}>{l}</p>
-          </Link>
+          </NavLink>
         ))}
       </div>
-      <div className="flex flex-col items-center">{children}</div>
-    </>
+      <div className="flex flex-col h-screen justify-between">
+        <div className="flex flex-col items-center">{children}</div>
+        <div className="h-8 w-[100%] bg-[#e8e5e5] text-center">🙊</div>
+      </div>
+    </div>
   );
 }
