@@ -8,7 +8,7 @@ export default function Layout({ navLinks, children }) {
     Order: "/order",
     "Add Product": "/",
     "Product List": "/",
-    Disconnect: "/",
+    Logout: "/",
   };
 
   const getActiveLinkStyle = ({ isActive }) => ({

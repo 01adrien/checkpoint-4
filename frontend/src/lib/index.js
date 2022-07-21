@@ -29,3 +29,7 @@ export async function getProductsByCategory(category, limit = 10, offset = 0) {
   );
   return res.data;
 }
+
+export async function deleteProduct(productId) {
+  return await myAxios.delete(`/products/${productId}`);
+}
