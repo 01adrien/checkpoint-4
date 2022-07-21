@@ -4,20 +4,31 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function AdminListItem({
   products,
-  modifyProduct,
-  refreshAfterDelete,
+  refresh,
+  modify,
+  selectProduct,
+  createProduct,
 }) {
   const tableBorder = "border-collapse border border-slate-400 text-center";
   const styleBtnBlue =
-    "bg-[blue] hover:bg-blue-500 text-white font-bold py-2 rounded w-[80px] mt-8 text-center";
+    "bg-[blue] hover:bg-blue-500 m-2 text-white font-bold py-2 rounded w-[80px] mt-8 text-center";
   const styleBtnRed =
-    "bg-[red] hover:bg-red-800 font-bold text-white py-2 rounded w-[80px] mt-8 text-center";
+    "bg-[red] hover:bg-red-800 m-2 font-bold text-white py-2 rounded w-[80px] mt-8 text-center";
   const tableHead = ["picture", "name", "price", "category", "rate", "action"];
   return (
     <div>
+      <div className="flex justify-center">
+        <button
+          onClick={() => createProduct()}
+          type="onSubmit"
+          className="bg-[blue] hover:bg-blue-500 text-white font-bold py-2 rounded w-[150px] m-3 text-center"
+        >
+          ADD A PRODUCT
+        </button>
+      </div>
       <table className={tableBorder}>
         <thead className={tableBorder}>
-          <tr>
+          <tr className="bg-[#e8e5e5]">
             {tableHead.map((head) => (
               <td className={tableBorder} key={head}>
                 {head}
@@ -26,9 +37,9 @@ export default function AdminListItem({
           </tr>
         </thead>
 
-        {products?.map((product) => (
+        {products?.map((product, i) => (
           <tbody className={tableBorder + "h16"} key={product.id}>
-            <tr>
+            <tr className={i % 2 !== 0 ? "bg-[#e8e5e5]" : null}>
               <td className={tableBorder}>
                 <img
                   className="w-20 h-24"
@@ -43,7 +54,10 @@ export default function AdminListItem({
               <td className="flex items-center">
                 <button
                   className={styleBtnBlue}
-                  onClick={() => modifyProduct(true)}
+                  onClick={() => {
+                    selectProduct(product.id);
+                    modify();
+                  }}
                 >
                   modify
                 </button>
@@ -51,7 +65,7 @@ export default function AdminListItem({
                   className={styleBtnRed}
                   onClick={async () => {
                     await deleteProduct(product.id).then(() => {
-                      refreshAfterDelete();
+                      refresh();
                       toast("product deleted !");
                     });
                   }}

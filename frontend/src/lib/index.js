@@ -33,3 +33,11 @@ export async function getProductsByCategory(category, limit = 10, offset = 0) {
 export async function deleteProduct(productId) {
   return await myAxios.delete(`/products/${productId}`);
 }
+
+export async function updateProduct(productId, body) {
+  return await myAxios.patch(`/products/${productId}`, body);
+}
+
+export async function createProduct(body) {
+  return await myAxios.post("/products", body);
+}
