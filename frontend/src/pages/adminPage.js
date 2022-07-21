@@ -7,7 +7,7 @@ import Pagination from "../components/pagination";
 import ProductForm from "../components/ProductForm";
 
 export default function AdminPage() {
-  const [loggin, setLoggin] = useState(true);
+  const [loggin, setLoggin] = useState(false);
   const [products, setProducts] = useState([]);
   const [credentials, setCredentials] = useState({});
   const [itemsCount, setItemsCount] = useState(null);

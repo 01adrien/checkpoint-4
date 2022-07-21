@@ -12,7 +12,7 @@ export default function AdminLoggin({ credentials, fnSubmit, setCredentials }) {
           <input
             type="text"
             className="w-[100%]"
-            value={credentials.name}
+            value={credentials.name || ""}
             onChange={(e) =>
               setCredentials({
                 ...credentials,
@@ -24,7 +24,7 @@ export default function AdminLoggin({ credentials, fnSubmit, setCredentials }) {
           <input
             type="password"
             className="w-[100%]"
-            value={credentials.password}
+            value={credentials.password || ""}
             onChange={(e) =>
               setCredentials({
                 ...credentials,

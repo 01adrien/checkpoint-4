@@ -56,8 +56,8 @@ export default function ProductForm({ productId, refresh, modify, method }) {
   }
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
-      <div className="h-[90vh] w-[60vw] bg-[#e8e5e5] flex justify-center rounded-md">
+    <div className="h-screen w-screen flex justify-center items-center product-form-bg">
+      <div className="h-[90vh] w-[50vw] bg-[#e8e5e5] flex justify-center rounded-md">
         <form
           className="flex flex-col w-[60%] items-center justify-around"
           onSubmit={handlePost}
@@ -77,7 +77,7 @@ export default function ProductForm({ productId, refresh, modify, method }) {
           <label>description</label>
           <textarea
             rows="15"
-            cols="25"
+            cols="20"
             type="text"
             value={product.description}
             onChange={(e) =>
